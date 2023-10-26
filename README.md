@@ -22,6 +22,6 @@ Bird Box is portable,Bird Box is annoying, Bird Box will grab people attention u
 
 ## Photos
 
-![Bird_Box_Top](\IoT11\Smart-Room-Controller-IoT\Midterm_Bird_Box_\ Bird_Box_Top.jpg)
+![Bird_Box_Top](/IoT11/Smart-Room-Controller-IoT/Midterm_Bird_Box_/Bird_Box_Top.jpg)
 ## Bird Box Product Page
-See The [project here](https://www.hackster.io/coming soon
+See The [project here](https://www.hackster.io/coming soon)
