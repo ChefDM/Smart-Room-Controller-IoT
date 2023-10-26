@@ -40,6 +40,7 @@ SYSTEM_MODE(SEMI_AUTOMATIC);
 int trigPin = D10;
 int echoPin = A2;
 int buzzer = A5;
+int spkr = D3;
 
 int pushups;
 
@@ -55,7 +56,8 @@ void setup() {
 
   pinMode(trigPin,OUTPUT);    
   pinMode(echoPin,INPUT);    
-  pinMode(buzzer,OUTPUT);    
+  pinMode(buzzer,OUTPUT);  
+  pinMode(spkr,OUTPUT);  
 
   onscreen.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   onscreen.printf("CM_%d \n IN_%d",cm,inch);
@@ -84,10 +86,16 @@ void loop() {
   cm= (duration/2)*0.034;
   inch = (duration/2)*0.0135;
 
-  if(inch < 3){
+  if(inch < 3){ // buzzer rings true for perfect dn position
     tone( buzzer, 200,200);
     delay(500);
     tone(buzzer,200,200);
+  }
+
+   if( inch >=12 && inch <=22){ //buzzer rings true pefect up position
+    tone( buzzer, 400,200);
+    delay(500);
+    tone(buzzer,400,200);
   }
 
 //      if(inch > 22){
@@ -102,16 +110,21 @@ void loop() {
     if ( inch == 3){
       inchDn = true;
     }
-    if ( inch >=12 && inch <=22){ // register true for number between 12 and 18 including 12 and 18
+    if ( inch >=12 && inch <=20){ // register true for number between 12 and 18 including 12 and 18
       inchUp = true;
     }
 
     if(inchDn && inchUp){
       pushups ++; // reset T/F statements after count lets see if the count continues!
-      delay(200);
       inchUp = false;
       inchDn = false;
   }
+
+    if(pushups < 3){
+      tone(spkr,523,300);
+      delay(2000);
+      noTone(spkr);
+   }
   
 
  // reset the count with button
@@ -120,6 +133,8 @@ void loop() {
 
 }
 
+
+// THE SPEAKER "SPK" SEEMED LIKE AN EASY CONNECTION BUT FAILS TO EXECUTE AS WRITTEN IT IS PLUGGED DIRECTY INTO THE PIN AND A GROUND, 
 
 
 
