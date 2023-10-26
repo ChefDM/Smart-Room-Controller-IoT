@@ -1,7 +1,7 @@
 # BIRD BOX
 FOR BULKING YOUR PECKS.
 ## About
-**BIRD BOX** is a workout buddy for the gym rat whom wants to transform there bird chest into a huking one. With this device we will help you improve your push game posture, strenghten your core ss some ego to our overall personity. If you want **RESPECT**, say it with your chest. Our Senor indicates when youve reached a low point  and a  high point for a full engaging push pattern. If that isnt enough try Bid Box 2 The Sqauker with its insultivation mode ! 
+**BIRD BOX** is a workout buddy for the gym rat who wants to transform there bird chest into a huking one. With this device we will help you improve your push game posture, strenghten your core ss some ego to our overall personity. If you want **RESPECT**, say it with your chest. Our Senor indicates when youve reached a low point  and a  high point for a full engaging push pattern. If that isnt enough try Bid Box 2 The Sqauker with its insultivation mode ! 
 
 Place the Bird Box under your chest when our in a ready push up position. allow it to rigister your max up positon before begining the exercercise. Bird Box will record your push ups. 
 
