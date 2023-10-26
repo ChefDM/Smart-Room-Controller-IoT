@@ -37,12 +37,15 @@ SYSTEM_MODE(SEMI_AUTOMATIC);
 //SerialLogHandler logHandler(LOG_LEVEL_INFO);
 
 // setup() runs once, when the device is first turned on
-int trigPin(D10);
-int echoPin(A2);
+int trigPin = D10;
+int echoPin = A2;
 int buzzer = A5;
 
 int pushups;
-int prevDist;
+
+bool inchDn;
+bool inchUp;
+
 
 
 
@@ -82,29 +85,41 @@ void loop() {
   inch = (duration/2)*0.0135;
 
   if(inch < 3){
-    // tone( A5, 440,200);
-    // delay(500);
-    // tone(A5,440,200);
-
-digitalWrite(buzzer,HIGH);
-delay(200);
-digitalWrite(buzzer,LOW);
-
-      }
-
-  pushups = 0;
-    
-
-    if(inch == 3 || inch == 10 ){
-      pushups ++;
+    tone( buzzer, 200,200);
+    delay(500);
+    tone(buzzer,200,200);
   }
 
- prevDist = inch;
+//      if(inch > 22){
+//       digitalWrite(buzzer,HIGH);
+//       delay(2000);
+//       digitalWrite(buzzer,LOW);
+// }
+          
+// if inch is 10 then true and doen is 3 then also true , once both up and down are true then count pushups, reset the 
+// up and down to false to continue count, then use a button to reset pushups counter to zero.
+    
+    if ( inch == 3){
+      inchDn = true;
+    }
+    if ( inch >=12 && inch <=22){ // register true for number between 12 and 18 including 12 and 18
+      inchUp = true;
+    }
+
+    if(inchDn && inchUp){
+      pushups ++; // reset T/F statements after count lets see if the count continues!
+      delay(200);
+      inchUp = false;
+      inchDn = false;
+  }
+  
+
+ // reset the count with button
 
   testdrawchar();
 
-  }
-  
+}
+
 
 
 
@@ -121,7 +136,7 @@ digitalWrite(buzzer,LOW);
 
 void testdrawchar () {
   
-  onscreen.setTextSize(2);
+  onscreen.setTextSize(1);
   onscreen.setTextColor(WHITE);
   onscreen.setCursor(0,0); // Sets the location at which subsequent text written to the LCD will be displayed
   onscreen.clearDisplay();
