@@ -75,9 +75,9 @@ void setup() {
 void loop() {
 
   digitalWrite(trigPin,LOW);
-  delay(10);
+  //delay(10);
   digitalWrite(trigPin,HIGH);
-  delay(10);
+ // delay(10);
   digitalWrite(trigPin,LOW);
 
   
@@ -88,13 +88,13 @@ void loop() {
 
   if(inch < 3){ // buzzer rings true for perfect dn position
     tone( buzzer, 200,200);
-    delay(500);
+    //delay(500);
     tone(buzzer,200,200);
   }
 
    if( inch >=12 && inch <=22){ //buzzer rings true pefect up position
     tone( buzzer, 400,200);
-    delay(500);
+    //delay(500);
     tone(buzzer,400,200);
   }
 
@@ -122,7 +122,7 @@ void loop() {
 
     if(pushups < 3){
       tone(spkr,523,300);
-      delay(2000);
+      //delay(2000);
       noTone(spkr);
    }
   
@@ -157,10 +157,8 @@ void testdrawchar () {
   onscreen.clearDisplay();
   onscreen.printf("CM-%d \n IN-%d \n PUSHUPS-%d",cm,inch,pushups);
   onscreen.display();
-  delay(10);
   onscreen.clearDisplay();
 
-  Serial.printf("CM-%d \n IN-%d \n PU-%d",cm,inch,pushups);
-  delay(10);
+  //Serial.printf("CM-%d \n IN-%d \n PU-%d",cm,inch,pushups);
 }
 
