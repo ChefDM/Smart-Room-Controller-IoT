@@ -1,11 +1,11 @@
-# BIRD BOX
+# GAINS BOX
 FOR BULKING YOUR PECKS.
 ## About
-**BIRD BOX** is a workout buddy for the gym rat who wants to transform there bird chest into a huking one. With this device we will help you improve your push game posture, strenghten your core ss some ego to our overall personity. If you want **RESPECT**, say it with your chest. Our Senor indicates when youve reached a low point  and a  high point for a full engaging push pattern. If that isnt enough try Bid Box 2 The Sqauker with its insultivation mode ! 
+**GAINS BOX** is a workout buddy for the gym rat who wants to transform there bird chest into a huLking one. With this device we will help you improve your push game and posture, strenghten your core and some ego to your overall personality. If you want **RESPECT**, say it with your chest. Gains Box sensor indicates when youve reached a low point  and a  high point for a full on engaging push up improving technique. If that isnt enough try Gains Box 2 The Sqauker with its insultivation mode ! 
 
-Place the Bird Box under your chest when our in a ready push up position. allow it to rigister your max up positon before begining the exercercise. Bird Box will record your push ups. 
+Place the Gains Box underneath you just pass your chest when you're in a ready push up position. Allow itjus a few seconds before begining the exercercise. You'll notice the counter begin when you;ve successfully completed a pushup. You 'll hear a buzzer indicating youve reached a min and a max point for that perfect push up.
 
-Bird Box is portable,Bird Box is annoying, Bird Box will grab people attention until you do with your muscular physic.Bird Box requires self dicipline. 
+Gains Box is portable,Gains Box is annoying, Gains Box will grab people's attention until you do with your muscular physic.Gakns Box requires self dicipline. Don't cheat yourself.Share your results with your freinds and others in the Gains commuinity.
 
 
 ## Equipment
@@ -25,5 +25,5 @@ Bird Box is portable,Bird Box is annoying, Bird Box will grab people attention u
 ![Bird_Box_Top](/Images/Bird_Box_Top.jpg)
 ![Bird_Box_Top](/Images/Bird_Box_Show_OLED.jpg)
 
-## Bird Box Product Page
+## Gains Box Product Page
 See The [project here](https://www.hackster.io/coming soon)
