@@ -10,12 +10,24 @@
 #include "Particle.h"
 #include "Adafruit_SSD1306.h"
 #include "Adafruit_GFX.h"
+#include "Button.h"
+#include "wemo.h"
+
+// include "IoTClassroom_CNM".h
+
+
+#include "Encoder.h"
+#include "hue.h"
+
 
 long duration;
 int cm;
 int inch;
 
-
+// Encoder
+const int CLK = D16;// white wire 
+const int DT = D5; // blue wire  
+const int SW = D6; //green wire // also button
 
 #define OLED_RESET (D4)
 Adafruit_SSD1306 onscreen(OLED_RESET);
@@ -24,10 +36,45 @@ Adafruit_SSD1306 onscreen(OLED_RESET);
 
 void testdrawchar(void);
 
-//int pushups;
+// Ultrasonic Sensor
+
+int trigPin = D10;
+int echoPin = A2;
+
+// Buzzer
+int buzzer = A5;
+
+int pushups;
+
+bool inchDn;
+bool inchUp;
+
+// Wemo
+
+// bool wemoOnOff = false;
+// bool WEMO_STATE;
+// const int WEM01 =1;
+
+
+
+// Hue Lamps
+
+int bulbQty[6]; // total number of bulbs in classroom 
+int bulbId[] = {0,1,2,3,4,5};
+bool onOff;
+
+String ONOFF;
+Button ENCODERBUTTON(SW);
+Encoder myEnc (CLK,DT);
 
 // Let Device OS manage the connection to the Particle Cloud
-SYSTEM_MODE(SEMI_AUTOMATIC);
+
+//Which mode do I use ?
+
+//SYSTEM_MODE(SEMI_AUTOMATIC);
+
+SYSTEM_MODE(MANUAL); 
+
 
 // Run the application and system concurrently in separate threads
 //SYSTEM_THREAD(ENABLED);
@@ -37,42 +84,51 @@ SYSTEM_MODE(SEMI_AUTOMATIC);
 //SerialLogHandler logHandler(LOG_LEVEL_INFO);
 
 // setup() runs once, when the device is first turned on
-int trigPin = D10;
-int echoPin = A2;
-int buzzer = A5;
-int spkr = D3;
 
-int pushups;
-
-bool inchDn;
-bool inchUp;
-
-
+// Ultra Sonic Sensor
 
 
 void setup() {
 
+ // Put initialization like pinMode and begin functions here
+
   Serial.begin(9600);
+
+  waitFor(Serial.isConnected,10000);
+
+
+// Ultrasonic Sensor
 
   pinMode(trigPin,OUTPUT);    
   pinMode(echoPin,INPUT);    
   pinMode(buzzer,OUTPUT);  
-  pinMode(spkr,OUTPUT);  
+
+//Encoder
+
+  pinMode(SW,INPUT);
+
+  onOff = true;
+  WiFi.on();
+  WiFi.setCredentials("IoTNetwork");
+  WiFi.connect();
+  while(WiFi.connecting()) {
+    Serial.printf("Connecting\n");
+  }
+  
 
   onscreen.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   onscreen.printf("CM_%d \n IN_%d",cm,inch);
   onscreen.display();
-  delay(5000);
-  //testdrawchar();
-
-
-  
-  
-  // Put initialization like pinMode and begin functions here
 }
+ 
+  
 
 // loop() runs over and over again, as quickly as it can execute.
-void loop() {
+  void loop() {
+
+  testdrawchar();
+
+  // First run the Ultrasonic
 
   digitalWrite(trigPin,LOW);
   //delay(10);
@@ -80,28 +136,24 @@ void loop() {
  // delay(10);
   digitalWrite(trigPin,LOW);
 
-  
+//delay slowed me down omitting eys me the process smoother !
   duration = pulseIn(echoPin, HIGH);
 
   cm= (duration/2)*0.034;
   inch = (duration/2)*0.0135;
 
   if(inch < 3){ // buzzer rings true for perfect dn position
-    tone( buzzer, 200,200);
-    //delay(500);
-    tone(buzzer,200,200);
+    tone( buzzer, 500,500);
   }
 
    if( inch >=12 && inch <=22){ //buzzer rings true pefect up position
-    tone( buzzer, 400,200);
     //delay(500);
     tone(buzzer,400,200);
   }
 
-//      if(inch > 22){
-//       digitalWrite(buzzer,HIGH);
 //       delay(2000);
-//       digitalWrite(buzzer,LOW);
+//       digitalWrite(buzzer,HIGH);   //Alternative
+//       digitalWrite(buzzer,LOW);    // Alternative
 // }
           
 // if inch is 10 then true and doen is 3 then also true , once both up and down are true then count pushups, reset the 
@@ -110,6 +162,7 @@ void loop() {
     if ( inch == 3){
       inchDn = true;
     }
+
     if ( inch >=12 && inch <=20){ // register true for number between 12 and 18 including 12 and 18
       inchUp = true;
     }
@@ -120,19 +173,25 @@ void loop() {
       inchDn = false;
   }
 
-    if(pushups < 3){
-      tone(spkr,523,300);
-      //delay(2000);
-      noTone(spkr);
-   }
-  
 
- // reset the count with button
+  if (pushups == 3) {
+    for ( int i = 0; i < 6; i++){
+      setHue(bulbId[i], true, HueRed, 255, 55);
+    }
+  }
 
-  testdrawchar();
+  if (pushups == 0) {
+    for ( int i = 0; i < 6; i++){
+      setHue(bulbId[i], false, HueRed, 255, 55);
+    }
+  }
+// reset the count with button
 
+
+  if (ENCODERBUTTON.isClicked()) {
+     pushups = 0;  // also cut on wemo fan for 10 seconds !
+  }
 }
-
 
 // THE SPEAKER "SPK" SEEMED LIKE AN EASY CONNECTION BUT FAILS TO EXECUTE AS WRITTEN IT IS PLUGGED DIRECTY INTO THE PIN AND A GROUND, 
 
