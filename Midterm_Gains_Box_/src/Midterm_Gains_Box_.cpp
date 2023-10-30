@@ -12,6 +12,10 @@
 #include "Adafruit_GFX.h"
 #include "Button.h"
 #include "wemo.h"
+#include "neopixel.h"
+#include "Colors.h"
+
+
 
 // include "IoTClassroom_CNM".h
 
@@ -51,9 +55,10 @@ bool inchUp;
 
 // Wemo
 
-// bool wemoOnOff = false;
-// bool WEMO_STATE;
-// const int WEM01 =1;
+bool wemoOnOff = false;
+bool WEMO_STATE;
+const int WEM01 =1;
+int timer;
 
 
 
@@ -63,17 +68,27 @@ int bulbQty[6]; // total number of bulbs in classroom
 int bulbId[] = {0,1,2,3,4,5};
 bool onOff;
 
+//Encoder
+
 String ONOFF;
 Button ENCODERBUTTON(SW);
 Encoder myEnc (CLK,DT);
+
+//Neopixel
+int neopixel = D4;
+const int PXQTY = 2;
 
 // Let Device OS manage the connection to the Particle Cloud
 
 //Which mode do I use ?
 
-//SYSTEM_MODE(SEMI_AUTOMATIC);
+//SYSTEM_MODE(MANUAL);
 
-SYSTEM_MODE(MANUAL); 
+SYSTEM_MODE(SEMI_AUTOMATIC); 
+
+//Specific to neopixel
+
+// Adafruit_NeoPixel gains(PXQTY,D4,)
 
 
 // Run the application and system concurrently in separate threads
@@ -95,6 +110,12 @@ void setup() {
   Serial.begin(9600);
 
   waitFor(Serial.isConnected,10000);
+
+// Neopixel
+
+pinMode(neopixel,OUTPUT);
+// gains.begin();
+//gains.show();
 
 
 // Ultrasonic Sensor
@@ -185,21 +206,40 @@ void setup() {
       setHue(bulbId[i], false, HueRed, 255, 55);
     }
   }
-// reset the count with button
+// reset the push count with button and enter rest cool down mode
 
 
   if (ENCODERBUTTON.isClicked()) {
      pushups = 0;  // also cut on wemo fan for 10 seconds !
   }
+
+//Wemo
+
+if (ENCODERBUTTON.isClicked()) {
+  WEMO_STATE == true;
+  timer = millis();
 }
 
-// THE SPEAKER "SPK" SEEMED LIKE AN EASY CONNECTION BUT FAILS TO EXECUTE AS WRITTEN IT IS PLUGGED DIRECTY INTO THE PIN AND A GROUND, 
+// enter rest mode for 10 seconds
+
+if (millis() - timer > 10000) {
+    WEMO_STATE == false;
+  }
+
+  // Neopixel
+
+  if (pushups == 3){
+    digitalWrite(neopixel,HIGH); 
+  }
+
+  // for ( int neopixel = 0; neopixel < PXQTY; neopixel ++){
+    //  gains.setPixelColor(neopixel,green);
+    // gains.show();
+    //gains.clear
+// }
+}
 
 
-
-
-
-  
 
    // The core of your code will likely live here.
 
