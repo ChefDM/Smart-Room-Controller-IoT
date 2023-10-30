@@ -197,7 +197,7 @@ pinMode(neopixel,OUTPUT);
 
   if (pushups == 3) {
     for ( int i = 0; i < 6; i++){
-      setHue(bulbId[i], true, HueRed, 255, 55);
+      setHue(bulbId[i], true, HueGreen, 255, 55);
     }
   }
 
